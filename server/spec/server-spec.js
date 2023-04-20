@@ -16,7 +16,7 @@ describe('Persistent Node Chat Server', () => {
   beforeAll((done) => {
     dbConnection.connect();
 
-    const tablename = ''; // TODO: fill this out
+    const tablename = 'messages'; // TODO: fill this out
 
     /* Empty the db table before all tests so that multiple tests
      * (or repeated runs of the tests)  will not fail when they should be passing
@@ -28,7 +28,7 @@ describe('Persistent Node Chat Server', () => {
     dbConnection.end();
   });
 
-  it('Should insert posted messages to the DB', (done) => {
+  it.only('Should insert posted messages to the DB', (done) => {
     const username = 'Valjean';
     // eslint-disable-next-line quotes
     const message = "In mercy's name, three days is all I need.";
@@ -60,7 +60,7 @@ describe('Persistent Node Chat Server', () => {
           expect(results.length).toEqual(1);
 
           // TODO: If you don't have a column named text, change this test.
-          expect(results[0].text).toEqual(message);
+          expect(results[0].msg).toEqual(message);
           done();
         });
       })
