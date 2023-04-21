@@ -3,20 +3,21 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE messages (
-    id INT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     msg TEXT,
-    roomname VARCHAR(255),
+    roomname VARCHAR(20),
     campus VARCHAR(255),
-    created_at VARCHAR(255),
-    github_handle VARCHAR(255),
-    updated_at VARCHAR(255),
-    user_id INT
+    created_at VARCHAR(100),
+    github_handle VARCHAR(40),
+    updated_at VARCHAR(100),
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 /* Create other tables and define schemas for them here! */
 CREATE TABLE users (
-  id INT,
-  username VARCHAR(255)
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(40)
 );
 
 

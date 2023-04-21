@@ -1,23 +1,20 @@
-var db = require('../db');
+const promisePool = require('../db').promisePool;
+const Promise = require('bluebird');
 
-var Users = {
-  _data: {},
-
-  getAll: () => {
-    return Object.values(Users._data);
-  },
-
-  create: () => {
-    Users._data[user.user_id] = Users._conform(user);
-  },
-
-  _conform: (user) => {
-    user.username = user.username || '';
-
-    return user;
-  },
-};
 module.exports = {
-  getAll: function () {},
-  create: function () {},
+  getAll: function () {
+    const queryString = 'SELECT * FROM users';
+    return promisePool.query(queryString);
+  },
+  create: function (user) {
+    const conform = (user) => {
+      user.username = user.username || '';
+      return user;
+    };
+
+    const conformedUser = conform(user);
+    const queryString = 'INSERT INTO users (username) VALUES (?)'; // "+conformedUser,username+"
+    const queryArgs = [conformedUser.username];
+    return promisePool.query(queryString, queryArgs);
+  },
 };
